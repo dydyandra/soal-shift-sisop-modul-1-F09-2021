@@ -8,12 +8,72 @@ Ifanu Antoni | 05111940000064
 Dyandra Paramitha W. | 05111940000119
 
 ### Soal
-1. [File Soal 1](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/tree/master/soal1/soal1.sh)
+1. [File Soal 1](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/tree/master/soal1/soal1.sh) | [Penjelasan No. 1](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021#penjelasan-no-1)
 2. [File Soal 2](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/tree/master/soal2) | [Penjelasan No. 2](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021#penjelasan-no-2)
-3. Soal 3
+3. [File Soal 3](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/tree/master/soal3) 
 
 ## Penjelasan No. 1
+Ryujin baru saja diterima sebagai IT support di perusahaan Bukapedia. Dia diberikan tugas untuk membuat laporan harian untuk aplikasi internal perusahaan, ticky. Terdapat 2 laporan yang harus dia buat, yaitu laporan daftar peringkat pesan error terbanyak yang dibuat oleh ticky dan laporan penggunaan user pada aplikasi ticky. Untuk membuat laporan tersebut, Ryujin harus melakukan beberapa hal berikut:
+### a. Mengumpulkan informasi dari log aplikasi yang terdapat pada file syslog.log
+Sebelumnya, yang dilakukan yaitu menambahkan shebang yaitu `#!/bin/bash` agar script dapat berjalan, dan untuk memudahkan, memasukkan file-file yang akan digunakan/dibuat ke dalam variabel. 
+```bash
+file=/home/dyandra/praktikum1/syslog.log
+errorFile=error_message.csv
+userFile=user_statistic.csv
+```
 
+```bash
+errLog="(ERROR.)(.*)"
+log=$(grep -P -o "$errLog" $file)
+
+infLog="(INFO.)(.*)"
+log2=$(grep -P -o "$infLog" $file)
+
+```
+- `errLog` dan `infLog` merupakan regex yang digunakan untuk mencari data dalam file syslog.log. Keduanya akan mencari *pattern* dalam file dan mengmabil jenis informasi yang dibutuhkan oleh soal, yaitu jenis informasi (maka dari itu dipisah menjadi dua regex), pesan log dan username. Pattern dalam regex yaitu mencari mulai dari tulisan ERROR/INFO, kemudian mengambil semua informasi setelah tulisan. 
+- `log` dan `log2` untuk mengetes apakah regex yang digunakan benar atau tidak, dimana menggunakan `grep` dalam file syslog.log. Dikarenakan menggunakan regex Perl, maka agar dapat mengambil pola di file menggunakan `-P`, dan menggunakan `-o` untuk mengambil bagian yang tidak kosong dari file (hanya datanya saja yang diambil). 
+
+### b. Menampilkan semua pesan error yang muncul beserta jumlah kemunculannya.
+```bash
+errorType="(?<=ERROR.)(.*)((?<![)])(?=.[(]))" #regex 
+errorCount=$(grep -P -o "$errorType" $file | sort -V | uniq -c | sort -n)
+errorList=$(grep -P -o "$errorType" $file | uniq)
+# echo $errorCount
+# echo $errorList
+```
+- Untuk menampilkan semua pesan error, menggunakan regex `(?<=ERROR.)(.*)((?<![)])(?=.[(]))`, untuk mencari isi setelah kata `ERROR`, akan tetapi sebelum bagian username
+yang ditandai dengan adanya tanda kurung "(". 
+- `errorCount` digunakan untuk mengambil data dalam file log sesuai dengan regex. `sort -V` untuk mengelompokkan pesan, `uniq -c` digunakan agar pesan dari yang telah dikelompokkan hanya muncul sekali saja per tipe dan menghitung kemunculan pesan tersebut di dalam file, dan `sort -n` digunakana agar *sum* yang sebelumnya dicari urut. 
+- `errorList` sama dengan `errorCount` hanya saja untuk mencari pesan-pesan error tanpa dihitung kemunculannya. 
+
+### c. Menampilkan jumlah kemunculan log ERROR dan INFO untuk setiap user-nya.
+```bash
+user="(?<=[(])(.*)(?=[)])" #regex 
+userCount=$(grep -P -o "$user" $file | sort -n | uniq -c)
+userList=$(grep -P -o "$user" $file | uniq)
+# echo $userCount
+# echo $userList
+```
+- `user` adalah regex yang digunakan untuk mencari nama user. Dikarenakan username memiliki karakteristik khusus yaitu dikelilingi oleh "()" dan ada di bagian terakhir baris, maka untuk mencari dapat menggunakan pola regex `(?<=[(])(.*)(?=[)])`, dimana hanya akan mencari isi dari dalam pasangan tanda kurung. 
+- `userCount` digunakan untuk mengambil data menggunakan pola regex `user`. Seperti pada 1b, menggunakan `grep -P -o` karena pola yang digunakan merupakan regex Perl, dan menggunakan `sort -n | uniq -c` untuk menghitung kemunculan user dan mengurutkannya. 
+- `userList` hanya untuk mencari nama user saja. 
+
+### d. Memasukkan informasi yang telah diambil di b ke dalam file csv, secara urut. 
+```bash
+printf "ERROR, COUNT\n" > $errorFile
+echo "$errorCount" | sort -nr | \
+while read count
+do
+    name=$(echo $count | cut -d " " -f 2-)
+    sum=$(echo $count | cut -d " " -f 1 )
+    echo "$name, $sum" 
+done >> $errorFile
+```
+- Memanfaatkan informasi dari 1b (di dalam `errorCount`), dan dikarenakan urutan pada 1b dari paling kecil, maka menggunakan `sort -nr` untuk meng-*reverse* urutan. Kemudian, dalam while loop, akan menggunakan info dari `errorCount`. Karena di 1b, informasi terdiri atas <pesan error><jumlah>, untuk memasukkan ke dalam csv harus dalam dua *field* yang berbeda, maka dari itu menggunakan variabel `name` dan `sum` untuk memisahkan data tersebut, juga dengan memanfaatkan `cut -d " " -f 2-` dan `cut -d " " -f 2-` sebagai *delimiter*. 
+- Data kemudian akan dimasukkan ke dalam `error_message.csv`. 
+
+### e. Memasukkan 1c ke dalam file user_statistic.csv dengan header Username,INFO,ERROR diurutkan berdasarkan username secara ascending.
+Coming soon!
 
 ## Penjelasan No. 2
 Steven dan Manis mendirikan sebuah startup bernama “TokoShiSop”. Sedangkan kamu dan Clemong adalah karyawan pertama dari TokoShiSop. Setelah tiga tahun bekerja, Clemong diangkat menjadi manajer penjualan TokoShiSop, sedangkan kamu menjadi kepala gudang yang mengatur keluar masuknya barang.
