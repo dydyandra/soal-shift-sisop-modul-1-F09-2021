@@ -1,0 +1,2 @@
+0 20 */7 * * /bin/bash soal3b.sh
+0 20 2-31/4 * * /bin/bash soal3b.sh
