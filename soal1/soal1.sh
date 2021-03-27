@@ -19,9 +19,9 @@ log2=$(grep -P -o "$infLog" $file)
 # SOAL B
 errorType="(?<=ERROR.)(.*)((?<![)])(?=.[(]))" #regex expression
 # errorList=$(grep -P -o "$errortype" $file)
-errorCount=$(grep -P -o "$errorType" $file | sort -V| sort -n | uniq -c)
+errorCount=$(grep -P -o "$errorType" $file | sort -V | uniq -c | sort -n)
 errorList=$(grep -P -o "$errorType" $file | uniq)
-# echo $errorCount
+echo $errorCount
 # echo $errorList
 
 
@@ -38,12 +38,12 @@ userList=$(grep -P -o "$user" $file | uniq)
 # # echo $nyoba
 
 printf "ERROR, COUNT\n" > $errorFile
-printf "$errorCount" | \
-while read -r count
+echo "$errorCount" | sort -nr | \
+while read count
 do
     name=$(echo $count | cut -d " " -f 2-)
-    sum=$(echo $count | cut -d " " -f 1)
-    echo "$name, $sum"
+    sum=$(echo $count | cut -d " " -f 1 )
+    echo "$name, $sum" 
 done >> $errorFile
 
 # SOAL E
