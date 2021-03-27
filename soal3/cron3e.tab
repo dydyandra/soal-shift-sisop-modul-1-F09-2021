@@ -1,0 +1,3 @@
+0 7 * * 1-5 /bin/bash soal3d.sh
+0 18 * * 1-5 unzip -P `date +"%m%d%Y"` Koleksi.zip
+0 18 * * 1-5 rm Koleksi.zip
