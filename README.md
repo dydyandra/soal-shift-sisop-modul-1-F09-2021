@@ -8,8 +8,8 @@ Ifanu Antoni | 05111940000064
 Dyandra Paramitha W. | 05111940000119
 
 ### Soal
-1. Soal 1
-2. [Soal 2](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/tree/master/soal2)
+1. [File Soal 1](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/tree/master/soal1/soal1.sh)
+2. [File Soal 2](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/tree/master/soal2) | [Penjelasan No. 2](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021#penjelasan-no-2)
 3. Soal 3
 
 ## Penjelasan No. 1
