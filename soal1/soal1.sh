@@ -6,38 +6,35 @@ userFile=user_statistic.csv
 
 #SOAL A
 #buat error
-errLog="(ERROR.)(.*)"
+errLog="(ERROR.)(.*)" #regex
 log=$(grep -P -o "$errLog" $file)
 #echo $log
 
 #buat info
-infLog="(INFO.)(.*)"
+infLog="(INFO.)(.*)" #regex
 log2=$(grep -P -o "$infLog" $file)
 #echo $log2
 
 
 # SOAL B
-errorType="(?<=ERROR.)(.*)((?<![)])(?=.[(]))" #regex expression
+errorType="(?<=ERROR.)(.*)((?<![)])(?=.[(]))" #regex 
 # errorList=$(grep -P -o "$errortype" $file)
 errorCount=$(grep -P -o "$errorType" $file | sort -V | uniq -c | sort -n)
 errorList=$(grep -P -o "$errorType" $file | uniq)
-echo $errorCount
+# echo $errorCount
 # echo $errorList
 
 
 #SOAL C
-user="(?<=[(])(.*)(?=[)])" #regex expression
-userCount=$(grep -P -o "$user" $file | sort -n | uniq -c)
-userList=$(grep -P -o "$user" $file | uniq)
+user="(?<=[(])(.*)(?=[)])" #regex 
+userCount=$(grep -P -o "$user" $file | sort -n | uniq -c) 
+userList=$(grep -P -o "$user" $file | sort | uniq)
 # echo $userCount
 # echo $userList
 
 
 # SOAL D
-# # nyoba=$(grep "$usercount" | tr " "",")
-# # echo $nyoba
-
-printf "ERROR, COUNT\n" > $errorFile
+printf "Error, Count\n" > $errorFile
 echo "$errorCount" | sort -nr | \
 while read count
 do
@@ -47,6 +44,3 @@ do
 done >> $errorFile
 
 # SOAL E
-
-
-
