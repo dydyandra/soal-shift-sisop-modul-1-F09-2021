@@ -8,7 +8,7 @@ userFile=user_statistic.csv
 #buat error
 errLog="(ERROR.)(.*)" #regex
 log=$(grep -P -o "$errLog" $file)
-#echo $log
+# echo $log
 
 #buat info
 infLog="(INFO.)(.*)" #regex
@@ -28,7 +28,7 @@ errorList=$(grep -P -o "$errorType" $file | uniq)
 #SOAL C
 user="(?<=[(])(.*)(?=[)])" #regex 
 userCount=$(grep -P -o "$user" $file | sort -n | uniq -c) 
-userList=$(grep -P -o "$user" $file | sort | uniq)
+userList=$(grep -P -o "$user" $file | sort -u)
 # echo $userCount
 # echo $userList
 
@@ -43,4 +43,13 @@ do
     echo "$name, $sum" 
 done >> $errorFile
 
+
 # SOAL E
+printf "USERNAME, INFO, ERROR\n" > $userFile
+echo "$userList" | \
+while read username
+do 
+    info_user=$(echo $username | grep -c -P "$infLog.*((?<=[(])($username)(?=[)]))" $file)
+    error_user=$(echo $username | grep -c -P "$errLog.*((?<=[(])($username)(?=[)]))" $file)
+    echo "$username,$info_user, $error_user" 
+done >> $userFile
