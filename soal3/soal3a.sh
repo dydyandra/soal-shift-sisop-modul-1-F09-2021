@@ -2,7 +2,7 @@
 
 for ((i=1; i<=23; i++)); 
 do
-	wget -a Foto.log -O "Koleksi_$i.jpg" https://loremflickr.com/320/240/kitten >> a.log
+	wget -a Foto.log -O "Koleksi_$i.jpg" https://loremflickr.com/320/240/kitten >> Foto.log
 
         for ((j=1; j<i; j++));
         do

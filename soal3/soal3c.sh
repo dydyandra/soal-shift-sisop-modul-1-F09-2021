@@ -3,14 +3,14 @@
 countKucing=$(find Kucing_* -type f | wc -l)
 countKelinci=$(find Kelinci_* -type f | wc -l)
 
-if (( countKucing == countKelinci ));
+if (( countKucing == countKelinci || countKucing < countKelinci ));
 then
 	namaFolder="Kucing_$(date +%d)-$(date +%m)-$(date +%Y)"
 	mkdir $namaFolder
 
 	for ((i=1; i<=23; i++));
 	do
-        	wget -a Foto.log -O "Koleksi_$i.jpg" https://loremflickr.com/320/240/kitten >> a.log
+        	wget -a Foto.log -O "Koleksi_$i.jpg" https://loremflickr.com/320/240/kitten >> Foto.log
         	for ((j=1; j<i; j++));
         	do
                 	if diff Koleksi_$j.jpg Koleksi_$i.jpg &> /dev/null;
@@ -47,7 +47,7 @@ then
 
         for ((i=1; i<=23; i++));
         do
-                wget -a Foto.log -O "Koleksi_$i.jpg" https://loremflickr.com/320/240/bunny >> a.log3
+                wget -a Foto.log -O "Koleksi_$i.jpg" https://loremflickr.com/320/240/bunny >> Foto.log
                 for ((j=1; j<i; j++));
                 do
                         if diff Koleksi_$j.jpg Koleksi_$i.jpg &> /dev/null;
