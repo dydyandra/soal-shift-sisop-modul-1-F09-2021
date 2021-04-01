@@ -49,14 +49,14 @@ yang ditandai dengan adanya tanda kurung "(".
 ### c. Menampilkan jumlah kemunculan log ERROR dan INFO untuk setiap user-nya.
 ```bash
 user="(?<=[(])(.*)(?=[)])" #regex 
-userCount=$(grep -P -o "$user" $file | sort -n | uniq -c)
-userList=$(grep -P -o "$user" $file | uniq)
+userCount=$(grep -P -o "$user" $file | sort -n | uniq -c) 
+userList=$(grep -P -o "$user" $file | sort -u)
 # echo $userCount
 # echo $userList
 ```
 - `user` adalah regex yang digunakan untuk mencari nama user. Dikarenakan username memiliki karakteristik khusus yaitu dikelilingi oleh "()" dan ada di bagian terakhir baris, maka untuk mencari dapat menggunakan pola regex `(?<=[(])(.*)(?=[)])`, dimana hanya akan mencari isi dari dalam pasangan tanda kurung. 
 - `userCount` digunakan untuk mengambil data menggunakan pola regex `user`. Seperti pada 1b, menggunakan `grep -P -o` karena pola yang digunakan merupakan regex Perl, dan menggunakan `sort -n | uniq -c` untuk menghitung kemunculan user dan mengurutkannya. 
-- `userList` hanya untuk mencari nama user saja. 
+- `userList` hanya untuk mencari nama user saja, dengan menggunakan `sort -u` untuk hanya mengambil data-data yang *unique/distinct* saja. 
 
 ### d. Memasukkan informasi yang telah diambil di b ke dalam file csv, secara urut. 
 ```bash
@@ -73,7 +73,20 @@ done >> $errorFile
 - Data kemudian akan dimasukkan ke dalam `error_message.csv`. 
 
 ### e. Memasukkan 1c ke dalam file user_statistic.csv dengan header Username,INFO,ERROR diurutkan berdasarkan username secara ascending.
-Coming soon!
+```bash
+printf "USERNAME, INFO, ERROR\n" > $userFile
+echo "$userList" | \
+while read username
+do 
+    info_user=$(echo $username | grep -c -P "$infLog.*((?<=[(])($username)(?=[)]))" $file)
+    error_user=$(echo $username | grep -c -P "$errLog.*((?<=[(])($username)(?=[)]))" $file)
+    echo "$username,$info_user, $error_user" 
+done >> $userFile
+```
+- Dari data yang telah di-grep pada 1c menggunakan userList, userList kemudian diiterasi kembali untuk menemukan jenis log tersebut. 
+- Untuk mencari jumlah log berjenis INFO pada setiap user, data dari setiap iterasi userList (yang diwakilkan dengan $username) diambil dan dihitung menggunakan `grep -c -P "$infLog.*((?<=[(])($username)(?=[)]))" $file`. Dengan menggunakan option grep `-c`, setiap line hanya dihitung, dan dengan `-P` hanya membaca line dengan pattern regex `$infLog.*((?<=[(])($username)(?=[)]))` yang berarti membaca yang depannya INFO (seperti pada regex 1a), dan nama user. 
+- Untuk mencari jumlah log berjenis ERROR pada setiap user juga sama, yaitu dengan mengiterasi data userList dan mencari menggunakan regex, yang kemudian diambil menggunakan `grep -c -P`. 
+- Hasil kemudian akan dicetak dan dimasukkan ke dalam variabel $userFile, yang berisi user_statistic.csv. 
 
 ## Penjelasan No. 2
 Steven dan Manis mendirikan sebuah startup bernama “TokoShiSop”. Sedangkan kamu dan Clemong adalah karyawan pertama dari TokoShiSop. Setelah tiga tahun bekerja, Clemong diangkat menjadi manajer penjualan TokoShiSop, sedangkan kamu menjadi kepala gudang yang mengatur keluar masuknya barang.
