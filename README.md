@@ -234,6 +234,44 @@ Penjelasan:
 - Perbedaannya yaitu untuk AWK soal 2a, AWK disimpan ke dalam output file menggunakan `> hasil.txt` agar file txt tidak akan terus terappend melainkan akan meng-overwrite apabila sebelumnya sudah ada isi dalam txt. 
 - Untuk soal-soal berikutnya menggunakan `>> hasil.txt` untuk mengappend jawaban dari 2a. 
 
-  
+## Penjelasan No. 3
+Kuuhaku adalah orang yang sangat suka mengoleksi foto-foto digital, namun Kuuhaku juga merupakan seorang yang pemalas sehingga ia tidak ingin repot-repot mencari foto, selain itu ia juga seorang pemalu, sehingga ia tidak ingin ada orang yang melihat koleksinya tersebut, sayangnya ia memiliki teman bernama Steven yang memiliki rasa kepo yang luar biasa. Kuuhaku pun memiliki ide agar Steven tidak bisa melihat koleksinya, serta untuk mempermudah hidupnya, yaitu dengan meminta bantuan kalian. Idenya adalah :
+### a. Membuat script untuk mengunduh 23 gambar serta menyimpan log-nya ke file "Foto.log". Kemudian menyimpan gambar-gambar tersebut dengan nama "Koleksi_XX" dengan nomor yang berurutan tanpa ada nomor yang hilang.
+Pertama membuat file dengan nama soal3a.sh kemudian menambahkan shebang yaitu `#!/bin/bash` agar script dapat berjalan. Kemudian untuk mengunduh gambar kucing menggunakan perintah `wget -a Foto.log -O "Koleksi_$i.jpg" https://loremflickr.com/320/240/kitten >> a.log`. Perintah tersebut juga digunakan untuk menyimpan log ke file Foto.log.
+Kemudian perintah `diff Koleksi_$j.jpg Koleksi_$i.jpg &> /dev/null;` digunakan untuk mengecek apakah gambar yang diunduh ada yang sama atau tidak, jika ada maka salah satu gambar yang sama akan dihapus. 
 
+### b. Menjalankan script sehari sekali pada jam 8 malam, dari tanggal 1 tujuh hari sekali serta dari tanggal 2 empat hari sekali. Gambar yang telah diunduh beserta log-nya, dipindahkan ke folder dengan nama tanggal unduhnya dengan format "DD-MM-YYYY" .
+Untuk membuat direktori baru menggunakan perintah mkdir dan mv untuk memindahkan file yang telah di unduh ke direktori baru 
+```
+namaFolder="$(date +%d)-$(date +%m)-$(date +%Y)"
+mkdir $namaFolder
+mv *.jpg $namaFolder
+mv Foto.log $namaFolder
+```
+Untuk menjalankan script secara otomatis maka digunakan crontab sebagai berikut
+```
+0 20 */7 * * /bin/bash soal3b.sh
+0 20 2-31/4 * * /bin/bash soal3b.sh
+```
+
+### c. Mengunduh gambar kucing dan kelinci secara bergantian dengan nama folder diberi awalan "Kucing_" atau "Kelinci_".
+Untuk mengunduh gambar kelinci dan kucing secara bergantian perlu untuk menghitung jumlah direktori dari kucing dan kelinci yang telah ada
+```
+countKucing=$(find Kucing_* -type f | wc -l)
+countKelinci=$(find Kelinci_* -type f | wc -l)
+```
+Jika jumlah direktori kucing < kelinci atau direktori kucing = kelinci, maka yang diunduh adalah gambar kucing. Selain syarat tersebut, maka yang diunduh adalah gambar kelinci. 
+
+### d. Membuat script yang akan memindahkan seluruh folder ke zip yang diberi nama “Koleksi.zip” dan mengunci zip tersebut dengan password berupa tanggal saat ini dengan format "MMDDYYYY".
+Perintah `zip -P `date +"%m%d%Y"` -r Koleksi.zip $namaFolder` digunakan untuk membuat file zip dengan nama file Koleksi.zip. Lalu file zip tersebut diberi password sesuai tanggal saat itu dengan format "MMDDYYYY".
+
+### e. Membuat koleksi ter-zip saat kuliah (jam 07.00-18.00 hari senin-jumat), kemudian koleksi ter-unzip dan tidak ada file zip sama sekali saat jam diluar kuliah. 
+Membuat crontab seperti berikut. 
+- Crontab `0 7 * * 1-5 /bin/bash soal3d.sh` digunakan untuk membuat file zip pada jam 07.00 pada hari senin-jumat
+- Crontab 
+```
+0 18 * * 1-5 unzip -P `date +"%m%d%Y"` Koleksi.zip
+0 18 * * 1-5 rm Koleksi.zip
+```
+digunakan untuk me-unzip file Koleksi.zip pada jam 18.00 pada hari senin-jumat.
 
