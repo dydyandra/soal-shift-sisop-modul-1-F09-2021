@@ -273,5 +273,5 @@ Membuat crontab seperti berikut.
 0 18 * * 1-5 unzip -P `date +"%m%d%Y"` Koleksi.zip
 0 18 * * 1-5 rm Koleksi.zip
 ```
-digunakan untuk me-unzip file Koleksi.zip pada jam 18.00 pada hari senin-jumat.
+digunakan untuk me-unzip file Koleksi.zip dan menghapus file zip-nya pada jam 18.00 pada hari senin-jumat.
 
