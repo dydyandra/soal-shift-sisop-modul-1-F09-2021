@@ -98,7 +98,6 @@ done >> $userFile
 
 ### Kendala yang dialami
 - Awal-awal masih bingung dengan penggunaan regex dan jenis-jenis grep dan sort sehingga untuk pengerjaan banyak mencoba-coba jenis-jenis tersebut.
-  apalagi di sesi lab atau di mudul tidak ada materi tantang regex   
 - Untuk no 1e, grep juga membaca substring dari data sehingga regex harus dimodifikasi kembali agar tidak terjadi pengambilan data yang salah. 
 
 
