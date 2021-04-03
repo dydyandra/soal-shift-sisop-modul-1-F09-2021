@@ -278,6 +278,9 @@ Untuk menjalankan script secara otomatis maka digunakan crontab sebagai berikut
 0 20 2-31/4 * * /bin/bash soal3b.sh
 ```
 
+### Output
+<img src="https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/blob/master/screenshot/no3b.png">
+
 ### c. Mengunduh gambar kucing dan kelinci secara bergantian dengan nama folder diberi awalan "Kucing_" atau "Kelinci_".
 Untuk mengunduh gambar kelinci dan kucing secara bergantian perlu untuk menghitung jumlah direktori dari kucing dan kelinci yang telah ada
 ```
@@ -286,8 +289,14 @@ countKelinci=$(find Kelinci_* -type f | wc -l)
 ```
 Jika jumlah direktori kucing < kelinci atau direktori kucing = kelinci, maka yang diunduh adalah gambar kucing. Selain syarat tersebut, maka yang diunduh adalah gambar kelinci. 
 
+### Output
+<img src="https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/blob/master/screenshot/no3c.png">
+
 ### d. Membuat script yang akan memindahkan seluruh folder ke zip yang diberi nama “Koleksi.zip” dan mengunci zip tersebut dengan password berupa tanggal saat ini dengan format "MMDDYYYY".
 Perintah `zip -P `date +"%m%d%Y"` -r Koleksi.zip $namaFolder` digunakan untuk membuat file zip dengan nama file Koleksi.zip. Lalu file zip tersebut diberi password sesuai tanggal saat itu dengan format "MMDDYYYY".
+
+### Output
+<img src="https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/blob/master/screenshot/no3d.png">
 
 ### e. Membuat koleksi ter-zip saat kuliah (jam 07.00-18.00 hari senin-jumat), kemudian koleksi ter-unzip dan tidak ada file zip sama sekali saat jam diluar kuliah. 
 Membuat crontab seperti berikut. 
@@ -298,4 +307,7 @@ Membuat crontab seperti berikut.
 0 18 * * 1-5 rm Koleksi.zip
 ```
 digunakan untuk me-unzip file Koleksi.zip dan menghapus file zip-nya pada jam 18.00 pada hari senin-jumat.
+
+### Kendala yang Dialami
+- Hasil 
 
