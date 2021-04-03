@@ -10,7 +10,7 @@ Dyandra Paramitha W. | 05111940000119
 ### Soal
 1. [File Soal 1](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/tree/master/soal1/soal1.sh) | [Penjelasan No. 1](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021#penjelasan-no-1)
 2. [File Soal 2](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/tree/master/soal2) | [Penjelasan No. 2](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021#penjelasan-no-2)
-3. [File Soal 3](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/tree/master/soal3) 
+3. [File Soal 3](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/tree/master/soal3) | [Penjelasan No. 3](https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021#penjelasan-no-3)
 
 ## Penjelasan No. 1
 Ryujin baru saja diterima sebagai IT support di perusahaan Bukapedia. Dia diberikan tugas untuk membuat laporan harian untuk aplikasi internal perusahaan, ticky. Terdapat 2 laporan yang harus dia buat, yaitu laporan daftar peringkat pesan error terbanyak yang dibuat oleh ticky dan laporan penggunaan user pada aplikasi ticky. Untuk membuat laporan tersebut, Ryujin harus melakukan beberapa hal berikut:
