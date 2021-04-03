@@ -303,11 +303,11 @@ Membuat crontab seperti berikut.
 - Crontab `0 7 * * 1-5 /bin/bash soal3d.sh` digunakan untuk membuat file zip pada jam 07.00 pada hari senin-jumat
 - Crontab 
 ```
-0 18 * * 1-5 unzip -P `date +"%m%d%Y"` Koleksi.zip
+0 18 * * 1-5 unzip -P `date +"\%m\%d\%Y"` Koleksi.zip
 0 18 * * 1-5 rm Koleksi.zip
 ```
 digunakan untuk me-unzip file Koleksi.zip dan menghapus file zip-nya pada jam 18.00 pada hari senin-jumat.
 
 ### Kendala yang Dialami
-- Hasil 
+- Pada no 3e, password yang digunakan untuk me-unzip file Koleksi.zip penggunaannya masih salah pada crontab. Agar password dapat terbaca perlu digunakan backslash seperti  `-P `date +"\%m\%d\%Y"``
 
