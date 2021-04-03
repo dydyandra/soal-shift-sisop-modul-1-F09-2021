@@ -261,6 +261,9 @@ Kuuhaku adalah orang yang sangat suka mengoleksi foto-foto digital, namun Kuuhak
 Pertama membuat file dengan nama soal3a.sh kemudian menambahkan shebang yaitu `#!/bin/bash` agar script dapat berjalan. Kemudian untuk mengunduh gambar kucing menggunakan perintah `wget -a Foto.log -O "Koleksi_$i.jpg" https://loremflickr.com/320/240/kitten >> a.log`. Perintah tersebut juga digunakan untuk menyimpan log ke file Foto.log.
 Kemudian perintah `diff Koleksi_$j.jpg Koleksi_$i.jpg &> /dev/null;` digunakan untuk mengecek apakah gambar yang diunduh ada yang sama atau tidak, jika ada maka salah satu gambar yang sama akan dihapus. 
 
+### Output
+<img src="https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/blob/master/screenshot/no3a.png">
+
 ### b. Menjalankan script sehari sekali pada jam 8 malam, dari tanggal 1 tujuh hari sekali serta dari tanggal 2 empat hari sekali. Gambar yang telah diunduh beserta log-nya, dipindahkan ke folder dengan nama tanggal unduhnya dengan format "DD-MM-YYYY" .
 Untuk membuat direktori baru menggunakan perintah mkdir dan mv untuk memindahkan file yang telah di unduh ke direktori baru 
 ```
