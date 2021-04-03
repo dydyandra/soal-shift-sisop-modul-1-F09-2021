@@ -32,6 +32,7 @@ log2=$(grep -P -o "$infLog" $file)
 ```
 - `errLog` dan `infLog` merupakan regex yang digunakan untuk mencari data dalam file syslog.log. Keduanya akan mencari *pattern* dalam file dan mengmabil jenis informasi yang dibutuhkan oleh soal, yaitu jenis informasi (maka dari itu dipisah menjadi dua regex), pesan log dan username. Pattern dalam regex yaitu mencari mulai dari tulisan ERROR/INFO, kemudian mengambil semua informasi setelah tulisan. 
 - `log` dan `log2` untuk mengetes apakah regex yang digunakan benar atau tidak, dimana menggunakan `grep` dalam file syslog.log. Dikarenakan menggunakan regex Perl, maka agar dapat mengambil pola di file menggunakan `-P`, dan menggunakan `-o` untuk mengambil bagian yang tidak kosong dari file (hanya datanya saja yang diambil). 
+- Untuk pencarian dan uji coba regex menggunakan website [Link](https://regexr.com/)
 
 ### b. Menampilkan semua pesan error yang muncul beserta jumlah kemunculannya.
 ```bash
@@ -87,6 +88,18 @@ done >> $userFile
 - Untuk mencari jumlah log berjenis INFO pada setiap user, data dari setiap iterasi userList (yang diwakilkan dengan $username) diambil dan dihitung menggunakan `grep -c -P "$infLog.*((?<=[(])($username)(?=[)]))" $file`. Dengan menggunakan option grep `-c`, setiap line hanya dihitung, dan dengan `-P` hanya membaca line dengan pattern regex `$infLog.*((?<=[(])($username)(?=[)]))` yang berarti membaca yang depannya INFO (seperti pada regex 1a), dan nama user. 
 - Untuk mencari jumlah log berjenis ERROR pada setiap user juga sama, yaitu dengan mengiterasi data userList dan mencari menggunakan regex, yang kemudian diambil menggunakan `grep -c -P`. 
 - Hasil kemudian akan dicetak dan dimasukkan ke dalam variabel $userFile, yang berisi user_statistic.csv. 
+
+### Output
+#### Untuk error_message.cv berisi data-data error dan jumlahnya (seperti 1d)
+<img src="https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/blob/master/screenshot/no1d.png"> | <img src="https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/blob/master/screenshot/error_message.png" width="350">
+
+### Untuk user_statistic.csv berisi data tiap user dan jumlah jenis info log dan errornya. 
+<img src="https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/blob/master/screenshot/no1e.png"> | <img src="https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/blob/master/screenshot/user_statistic.png" height="375">
+
+### Kendala yang dialami
+- Awal-awal masih bingung dengan penggunaan regex dan jenis-jenis grep dan sort sehingga untuk pengerjaan banyak mencoba-coba jenis-jenis tersebut. 
+- Untuk no 1e, grep juga membaca substring dari data sehingga regex harus dimodifikasi kembali agar tidak terjadi pengambilan data yang salah. 
+
 
 ## Penjelasan No. 2
 Steven dan Manis mendirikan sebuah startup bernama “TokoShiSop”. Sedangkan kamu dan Clemong adalah karyawan pertama dari TokoShiSop. Setelah tiga tahun bekerja, Clemong diangkat menjadi manajer penjualan TokoShiSop, sedangkan kamu menjadi kepala gudang yang mengatur keluar masuknya barang.
@@ -233,6 +246,13 @@ Penjelasan:
 - Dikarenakan saat pembuatan script, setiap nomor menggunakan perintah AWK yang berbeda, di setiap jawaban soal, output AWK akan dimasukkan ke dalam hasil.txt. 
 - Perbedaannya yaitu untuk AWK soal 2a, AWK disimpan ke dalam output file menggunakan `> hasil.txt` agar file txt tidak akan terus terappend melainkan akan meng-overwrite apabila sebelumnya sudah ada isi dalam txt. 
 - Untuk soal-soal berikutnya menggunakan `>> hasil.txt` untuk mengappend jawaban dari 2a. 
+
+### Output
+<img src="https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/blob/master/screenshot/no2bash.png" width="500"> | <img src="https://github.com/dydyandra/soal-shift-sisop-modul-1-F09-2021/blob/master/screenshot/hasiltxt.png" height="350">
+
+### Kendala yang Dialami
+- Hasil yang tidak tepat dengan dugaan setelah melihat data di csv, ternyata diakibatkan oleh sistem. Maka dari itu diselesaikan dengan penggunaan LC_ALL=C yang bermaksud untuk meng-override setting sistem. 
+
 
 ## Penjelasan No. 3
 Kuuhaku adalah orang yang sangat suka mengoleksi foto-foto digital, namun Kuuhaku juga merupakan seorang yang pemalas sehingga ia tidak ingin repot-repot mencari foto, selain itu ia juga seorang pemalu, sehingga ia tidak ingin ada orang yang melihat koleksinya tersebut, sayangnya ia memiliki teman bernama Steven yang memiliki rasa kepo yang luar biasa. Kuuhaku pun memiliki ide agar Steven tidak bisa melihat koleksinya, serta untuk mempermudah hidupnya, yaitu dengan meminta bantuan kalian. Idenya adalah :
