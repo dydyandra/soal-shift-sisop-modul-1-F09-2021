@@ -309,5 +309,5 @@ Membuat crontab seperti berikut.
 digunakan untuk me-unzip file Koleksi.zip dan menghapus file zip-nya pada jam 18.00 pada hari senin-jumat.
 
 ### Kendala yang Dialami
-- Pada no 3e, password yang digunakan untuk me-unzip file Koleksi.zip penggunaannya masih salah pada crontab. Agar password dapat terbaca perlu digunakan backslash seperti  `-P `date +"\%m\%d\%Y"``
+- Pada no 3e, password yang digunakan untuk me-unzip file Koleksi.zip penggunaannya masih salah pada crontab. Agar password dapat terbaca perlu digunakan backslash seperti -P `date +"\%m\%d\%Y"`
 
